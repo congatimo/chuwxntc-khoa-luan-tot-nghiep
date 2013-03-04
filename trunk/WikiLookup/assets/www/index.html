@@ -1,42 +1,196 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova-2.5.0.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-pixel" />
+
+<script src="js/index.js"></script>
+<!-- jQuery references -->
+<link href="css/themes/default/jquery.mobile-1.2.0.min.css"
+	rel="stylesheet" />
+<link href="css/jqm-docs.css" rel="stylesheet" />
+<script src="js/jquery.js"></script>
+<script src="js/jquery.mobile-1.2.0.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<title>Wikilookup</title>
+</head>
+<body>
+	<div data-role="page" class="type-interior">
+		<div data-role="header" data-theme="f" class="ntcHeader"
+			data-position="fixed">
+			<h1 style="text-transform: capitalize;">
+				<b>TÌM NHANH</b>
+			</h1>
+			<a href="#" data-icon="home" data-iconpos="notext"
+				data-direction="reverse">Home</a> <a href="about.html"
+				data-icon="info" data-iconpos="notext" data-transition="slideup">About</a>
+			<div data-role="header" data-theme="a" class="ui-bar ui-grid-a"
+				style="padding: 0px; margin-left: -3px;">
+				<div class="ui-block-a"
+					style="width: 70%; padding-top: 4px; padding-left: 5px">
+					<input placeholder="Nhập vị trí cần tìm" type="search"
+						data-theme="d" name="search-mini" id="search-mini"
+						data-mini="true" />
+				</div>
+				<div class="ui-block-b" style="width: 30%;">
+					<div>
+						<button type="submit" data-theme="b">Tìm</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- End Heafer -->
+
+		<!-- Start Content -->
+		<div class="ntc-content"
+			style="text-transform: none; overflow: hidden;">
+			<style>
+.nav-glyphish .ui-btn .ui-btn-inner {
+	padding-top: 80px !important;
+}
+
+.nav-glyphish .ui-btn .ui-icon {
+	width: 80px !important;
+	height: 80px !important;
+	margin-left: -40px !important;
+	box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	-webkit-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
+
+#vitri .ui-icon {
+	background: url(img/place.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#danhmuc .ui-icon {
+	background: url(img/catalog.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#quanhtoi .ui-icon {
+	background: url(img/starthere.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#chiduong .ui-icon {
+	background: url(img/around.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#atm .ui-icon {
+	background: url(img/atm.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#bank .ui-icon {
+	background: url(img/bank.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#khachsan .ui-icon {
+	background: url(img/hotel.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#nhahang .ui-icon {
+	background: url(img/restaurant.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#cayxang .ui-icon {
+	background: url(img/gasstation.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#bus .ui-icon {
+	background: url(img/busstation.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#truonghoc .ui-icon {
+	background: url(img/school.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+
+#canhsat .ui-icon {
+	background: url(img/police.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+</style>
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
+				<div data-role="navbar" class="nav-glyphish">
+					<ul>
+						<li><a href="vitri.html" class="ntc-chucnang" id="vitri"
+							data-icon="custom">Vị trí</a></li>
+						<li><a href="#" class="ntc-chucnang" id="danhmuc"
+							data-icon="custom">Danh mục</a></li>
+						<li><a href="#" class="ntc-chucnang" id="quanhtoi"
+							data-icon="custom">Quanh tôi</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
+				<div data-role="navbar" class="nav-glyphish">
+					<ul>
+						<li><a href="#" class="ntc-chucnang" id="chiduong"
+							data-icon="custom">Chỉ đường</a></li>
+						<li><a href="#" class="ntc-chucnang" id="atm"
+							data-icon="custom">ATM</a></li>
+						<li><a href="#" class="ntc-chucnang" id="bank"
+							data-icon="custom">Ngân hàng</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
+				<div data-role="navbar" class="nav-glyphish">
+					<ul>
+						<li><a href="#" class="ntc-chucnang" id="khachsan"
+							data-icon="custom">Khách sạn</a></li>
+						<li><a href="#" class="ntc-chucnang" id="nhahang"
+							data-icon="custom">Nhà hàng</a></li>
+						<li><a href="#" class="ntc-chucnang" id="cayxang"
+							data-icon="custom">Cây xăng</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
+				<div data-role="navbar" class="nav-glyphish">
+					<ul>
+						<li><a href="#" class="ntc-chucnang" id="bus"
+							data-icon="custom">Xe buýt</a></li>
+						<li><a href="#" class="ntc-chucnang" id="truonghoc"
+							data-icon="custom">Trường học</a></li>
+						<li><a href="#" class="ntc-chucnang" id="canhsat"
+							data-icon="custom">Cảnh sát</a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- End Content -->
+
+			<!-- Start Footer -->
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar" data-iconpos="right">
+					<ul>
+						<li><a href="#" class="ui-btn-active" data-icon="grid">Địa
+								điểm</a></li>
+						<li><a href="#" data-icon="search">Tra cứu</a></li>
+						<li><a href="#" data-icon="gear">Tiện ích</a></li>
+					</ul>
+				</div>
+				<!-- /navbar -->
+			</div>
+			<!-- End Footer -->
+		</div>
+</body>
 </html>
