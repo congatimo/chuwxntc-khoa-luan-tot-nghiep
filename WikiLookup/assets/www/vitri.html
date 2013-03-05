@@ -1,44 +1,73 @@
-﻿<!DOCTYPE html>
-<html>
-  <head>
-    <title>Device Properties Example</title>
+﻿<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+	
+	<!-- jQuery references -->
+	<link href="css/themes/default/jquery.mobile-1.2.0.min.css"	rel="stylesheet" />
+	<link href="css/jqm-docs.css" rel="stylesheet" />
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.mobile-1.2.0.min.js"></script>
 
-    <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
-    <script type="text/javascript" charset="utf-8">
+	<!-- Wikilookup references -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" charset="utf-8" src="js/googlemap.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/phonegapfunctions.js"></script>
+	
+	<!-- PhoneGap references -->
+	<script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
+	
+	<script type="text/javascript">
+		// Wait for Cordova to load
+		document.addEventListener("deviceready", onDeviceReady, false);
+		
+		var watchID = null;
+		
+		// Cordova is ready
+		function onDeviceReady() {
+			var options = { timeout: 30000 };
+			watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+		}
+		 
+		// onSuccess Geolocation
+		function onSuccess(position) {
+			var reachability = new Reachability();
+			if (reachability.IsNotConnected()) {
+				navigator.notification.alert('Không có kết nối Internet. Vui lòng thử lại sau!', null, '', 'OK');
+			} else {
+				var map = new GoogleMap(position.coords.latitude, position.coords.longitude);
+				map.initialize();
+		}
+			
+			
+			var element = document.getElementById('geolocation');
+			element.innerHTML = 'Latitude: ' + position.coords.latitude
+					+ '<br />' + 'Longitude: ' + position.coords.longitude
+					+ '<br />' + '<hr />' + element.innerHTML;
+		}
+		
+		// onError Callback receives a PositionError object
+	    function onError(error) {
+	        alert('code: '    + error.code    + '\n' +
+	              'message: ' + error.message + '\n');
+	    }
+	</script>
+</head>
+<body>
+	<!-- Start Header -->
+	<div data-role="header" data-theme="f" class="ntcHeader" data-position="fixed">
+		<h1 style="text-transform: capitalize;"><b>VỊ TRÍ</b></h1>
+		<a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
+		<a href="about.html" data-icon="info" data-iconpos="notext" data-transition="slideup">About</a>
+		</div>
+	</div>
+		<!-- End Header -->
+	<p id="geolocation">Watching geolocation...</p>
+	<div id="map_canvas" style="width: 100%; height: 400px;">Vui lòng đợi trong giây lát...</div>
+	<script type="text/javascript">
+	document.getElementById('map_canvas').style.height = document.body.clientHeight - 50;
+	</script>
+</body>
 
-    // Wait for Cordova to load
-    //
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    var watchID = null;
-
-    // Cordova is ready
-    //
-    function onDeviceReady() {
-        // Throw an error if no update is received every 30 seconds
-        var options = { timeout: 30000 };
-        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-    }
-
-    // onSuccess Geolocation
-    //
-    function onSuccess(position) {
-        var element = document.getElementById('geolocation');
-        element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
-                            'Longitude: ' + position.coords.longitude     + '<br />' +
-                            '<hr />'      + element.innerHTML;
-    }
-
-    // onError Callback receives a PositionError object
-    //
-    function onError(error) {
-        alert('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
-    }
-
-    </script>
-  </head>
-  <body>
-    <p id="geolocation">Watching geolocation...</p>
-  </body>
 </html>
