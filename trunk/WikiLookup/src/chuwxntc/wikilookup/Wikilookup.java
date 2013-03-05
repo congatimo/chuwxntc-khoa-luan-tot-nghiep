@@ -7,6 +7,7 @@ public class Wikilookup extends DroidGap {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.loadUrl(Config.getStartUrl());
+		super.setIntegerProperty("splashscreen", R.drawable.splash);
+		super.loadUrl(Config.getStartUrl(), 3000);
 	}
 }
