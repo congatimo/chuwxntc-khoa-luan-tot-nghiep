@@ -11,7 +11,7 @@
 	<script src="js/jquery.mobile-1.2.0.min.js"></script>
 
 	<!-- Wikilookup references -->
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&language=vi"></script>
 	<script type="text/javascript" charset="utf-8" src="js/googlemap.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/phonegapfunctions.js"></script>
 	
@@ -38,19 +38,11 @@
 			} else {
 				var map = new GoogleMap(position.coords.latitude, position.coords.longitude);
 				map.initialize();
-		}
-			
-			
-			var element = document.getElementById('geolocation');
-			element.innerHTML = 'Latitude: ' + position.coords.latitude
-					+ '<br />' + 'Longitude: ' + position.coords.longitude
-					+ '<br />' + '<hr />' + element.innerHTML;
+			}	
 		}
 		
 		// onError Callback receives a PositionError object
 	    function onError(error) {
-	        alert('code: '    + error.code    + '\n' +
-	              'message: ' + error.message + '\n');
 	    }
 	</script>
 </head>
@@ -63,10 +55,9 @@
 		</div>
 	</div>
 		<!-- End Header -->
-	<p id="geolocation">Watching geolocation...</p>
-	<div id="map_canvas" style="width: 100%; height: 400px;">Vui lòng đợi trong giây lát...</div>
+	<div id="map_canvas" style="width: 100%; height: 400px; text-align:center;"><br/>Vui lòng đợi trong giây lát...</div>
 	<script type="text/javascript">
-	document.getElementById('map_canvas').style.height = document.body.clientHeight - 50;
+	document.getElementById('map_canvas').style.height = document.body.clientHeight - 40;
 	</script>
 </body>
 

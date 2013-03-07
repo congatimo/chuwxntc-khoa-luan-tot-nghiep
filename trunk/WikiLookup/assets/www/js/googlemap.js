@@ -22,20 +22,19 @@ function GoogleMap(latitude, longitude){
 				zoomSize = 10;
 			map.setZoom(zoomSize);
 			map.setCenter(marker.getPosition());
+			geocoder.geocode({'latLng': latlng}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					if (results[1]) {
+						infowindow = new google.maps.InfoWindow({content: results[1].formatted_address});
+						infowindow.open(map,marker);
+					} else {
+						// Vị trí không thể xác định đích tên
+					}
+		          } else {
+		            // Thất bại trong việc tìm tên
+		          }
+			    });
 		});
-		
-		geocoder.geocode({'latLng': latlng}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
-					infowindow = new google.maps.InfoWindow({content: results[1].formatted_address});
-					infowindow.open(map,marker);
-				} else {
-					// Vị trí không thể xác định đích tên
-				}
-	          } else {
-	            // Thất bại trong việc tìm tên
-	          }
-		    });
     }    
     
     var showMap = function() {
