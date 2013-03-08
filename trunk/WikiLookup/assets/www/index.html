@@ -18,12 +18,29 @@
 	<script type="text/javascript" src="cordova-2.5.0.js"></script>
 	
 	<script type="text/javascript" charset="utf-8">
+		var latitude = 10.8230989;
+		var longitude = 106.6296638;
+		
 		// Wait for Cordova to load
 		document.addEventListener("deviceready", onDeviceReady, false);
 	
 		// Cordova is ready
 		function onDeviceReady() {
 			navigator.splashscreen.hide();
+			navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		}
+		
+		function onSuccess(position) {
+			latitude = position.coords.latitude;
+			longitude = position.coords.longitude;
+		}
+	
+		function onError(error) {}
+		
+		// Hàm tìm theo từ khóa
+		function timTheoTuKhoa(){
+			var key = document.getElementById('search-mini').value;
+			window.location.assign("results.html?"+latitude+"@"+longitude+"$"+key);
 		}
 	</script>
 <title>Wikilookup</title>
@@ -31,131 +48,153 @@
 <body>
 	<div data-role="page" class="type-interior">
 		<!-- Start Header -->
-		<div data-role="header" data-theme="f" class="ntcHeader" data-position="fixed">
+		<div data-role="header" data-theme="f" class="ntcHeader"
+			data-position="fixed">
 			<h1 style="text-transform: capitalize;"><b>TÌM NHANH</b></h1>
-			<a href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
-			<a href="about.html" data-icon="info" data-iconpos="notext" data-transition="slideup">About</a>
-			<div data-role="header" data-theme="a" class="ui-bar ui-grid-a"	style="padding: 0px; margin-left: -3px;">
-				<div class="ui-block-a"	style="width: 70%; padding-top: 4px; padding-left: 5px">
-					<input placeholder="Nhập vị trí cần tìm" type="search" data-theme="d" name="search-mini" id="search-mini" data-mini="true" />
+			<a href="index.html" data-icon="home" data-iconpos="notext"
+				data-direction="reverse">Home</a> <a href="about.html"
+				data-icon="info" data-iconpos="notext" data-transition="slideup">About</a>
+			<div data-role="header" data-theme="a" class="ui-bar ui-grid-a"
+				style="padding: 0px; margin-left: -3px;">
+				<div class="ui-block-a" style="width: 70%; padding-top: 4px; padding-left: 5px">
+					<input placeholder="Bạn muốn tìm gì?" type="search" data-theme="d" name="search-mini" id="search-mini" data-mini="true" />
 				</div>
-				<div class="ui-block-b" style="width: 30%;"><div><button type="submit" data-theme="b">Tìm</button></div></div>
+				<div class="ui-block-b" style="width: 30%;">
+					<div><button type="submit" data-theme="b" onclick="timTheoTuKhoa()">Tìm</button></div>
+				</div>
 			</div>
 		</div>
 		<!-- End Header -->
 
 		<!-- Start Content -->
-		<div class="ntc-content" style="text-transform: none; overflow: hidden;">
+		<div class="ntc-content"
+			style="text-transform: none; overflow: hidden;">
 			<style>
-				.nav-glyphish .ui-btn .ui-btn-inner {
-					padding-top: 80px !important;
-				}
+.nav-glyphish .ui-btn .ui-btn-inner {
+	padding-top: 80px !important;
+}
 
-				.nav-glyphish .ui-btn .ui-icon {
-					width: 80px !important;
-					height: 80px !important;
-					margin-left: -40px !important;
-					box-shadow: none !important;
-					-moz-box-shadow: none !important;
-					-webkit-box-shadow: none !important;
-					-webkit-border-radius: 0 !important;
-					border-radius: 0 !important;
-				}
+.nav-glyphish .ui-btn .ui-icon {
+	width: 80px !important;
+	height: 80px !important;
+	margin-left: -40px !important;
+	box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	-webkit-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
 
-				#vitri .ui-icon {
-					background: url(img/place.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#vitri .ui-icon {
+	background: url(img/place.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#danhmuc .ui-icon {
-					background: url(img/catalog.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#danhmuc .ui-icon {
+	background: url(img/catalog.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#quanhtoi .ui-icon {
-					background: url(img/starthere.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#quanhtoi .ui-icon {
+	background: url(img/starthere.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#chiduong .ui-icon {
-					background: url(img/around.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#chiduong .ui-icon {
+	background: url(img/around.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#atm .ui-icon {
-					background: url(img/atm.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#atm .ui-icon {
+	background: url(img/atm.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#bank .ui-icon {
-					background: url(img/bank.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#bank .ui-icon {
+	background: url(img/bank.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#khachsan .ui-icon {
-					background: url(img/hotel.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#khachsan .ui-icon {
+	background: url(img/hotel.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#nhahang .ui-icon {
-					background: url(img/restaurant.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#nhahang .ui-icon {
+	background: url(img/restaurant.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#cayxang .ui-icon {
-					background: url(img/gasstation.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#cayxang .ui-icon {
+	background: url(img/gasstation.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#bus .ui-icon {
-					background: url(img/busstation.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#bus .ui-icon {
+	background: url(img/busstation.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#truonghoc .ui-icon {
-					background: url(img/school.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
+#truonghoc .ui-icon {
+	background: url(img/school.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
 
-				#canhsat .ui-icon {
-					background: url(img/police.png) 50% 50% no-repeat;
-					background-size: 60px 60px;
-				}
-			</style>
-			
-			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
+#canhsat .ui-icon {
+	background: url(img/police.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+</style>
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a data-transition="none" data-ajax="false" href="vitri.html" class="ntc-chucnang" id="vitri" data-icon="custom">Vị trí</a></li>
-						<li><a data-ajax="false" href="danhmuc.html" class="ntc-chucnang" id="danhmuc" data-icon="custom">Danh mục</a></li>
-						<li><a href="#" class="ntc-chucnang" id="quanhtoi" data-icon="custom">Quanh tôi</a></li>
+						<li><a data-transition="none" data-ajax="false"
+							href="vitri.html" class="ntc-chucnang" id="vitri"
+							data-icon="custom">Vị trí</a></li>
+						<li><a data-ajax="false" href="danhmuc.html"
+							class="ntc-chucnang" id="danhmuc" data-icon="custom">Danh mục</a></li>
+						<li><a href="#" class="ntc-chucnang" id="quanhtoi"
+							data-icon="custom">Quanh tôi</a></li>
 					</ul>
 				</div>
 			</div>
-			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a href="#" class="ntc-chucnang" id="chiduong" data-icon="custom">Chỉ đường</a></li>
-						<li><a href="#" class="ntc-chucnang" id="atm" data-icon="custom">ATM</a></li>
-						<li><a href="#" class="ntc-chucnang" id="bank" data-icon="custom">Ngân hàng</a></li>
+						<li><a href="#" class="ntc-chucnang" id="chiduong"
+							data-icon="custom">Chỉ đường</a></li>
+						<li><a href="#" class="ntc-chucnang" id="atm"
+							data-icon="custom">ATM</a></li>
+						<li><a href="#" class="ntc-chucnang" id="bank"
+							data-icon="custom">Ngân hàng</a></li>
 					</ul>
 				</div>
 			</div>
-			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a href="#" class="ntc-chucnang" id="khachsan" data-icon="custom">Khách sạn</a></li>
-						<li><a href="#" class="ntc-chucnang" id="nhahang" data-icon="custom">Nhà hàng</a></li>
-						<li><a href="#" class="ntc-chucnang" id="cayxang" data-icon="custom">Cây xăng</a></li>
+						<li><a href="#" class="ntc-chucnang" id="khachsan"
+							data-icon="custom">Khách sạn</a></li>
+						<li><a href="#" class="ntc-chucnang" id="nhahang"
+							data-icon="custom">Nhà hàng</a></li>
+						<li><a href="#" class="ntc-chucnang" id="cayxang"
+							data-icon="custom">Cây xăng</a></li>
 					</ul>
 				</div>
 			</div>
-			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
+			<div data-role="header" data-id="foo1" data-theme="e"
+				class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a href="#" class="ntc-chucnang" id="bus" data-icon="custom">Xe buýt</a></li>
-						<li><a href="#" class="ntc-chucnang" id="truonghoc" data-icon="custom">Trường học</a></li>
-						<li><a href="#" class="ntc-chucnang" id="canhsat" data-icon="custom">Cảnh sát</a></li>
+						<li><a href="#" class="ntc-chucnang" id="bus"
+							data-icon="custom">Xe buýt</a></li>
+						<li><a href="#" class="ntc-chucnang" id="truonghoc"
+							data-icon="custom">Trường học</a></li>
+						<li><a href="#" class="ntc-chucnang" id="canhsat"
+							data-icon="custom">Cảnh sát</a></li>
 					</ul>
 				</div>
 			</div>
@@ -165,7 +204,8 @@
 			<div data-role="footer" data-position="fixed">
 				<div data-role="navbar" data-iconpos="right">
 					<ul>
-						<li><a href="#" class="ui-btn-active" data-icon="grid">Địa điểm</a></li>
+						<li><a href="#" class="ui-btn-active" data-icon="grid">Địa
+								điểm</a></li>
 						<li><a href="#" data-icon="search">Tra cứu</a></li>
 						<li><a href="#" data-icon="gear">Tiện ích</a></li>
 					</ul>
@@ -173,5 +213,6 @@
 			</div>
 			<!-- End Footer -->
 		</div>
+	</div>
 </body>
 </html>
