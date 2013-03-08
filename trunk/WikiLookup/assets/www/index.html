@@ -20,6 +20,7 @@
 	<script type="text/javascript" charset="utf-8">
 		var latitude = 10.8230989;
 		var longitude = 106.6296638;
+		var timthay = false;
 		
 		// Wait for Cordova to load
 		document.addEventListener("deviceready", onDeviceReady, false);
@@ -33,6 +34,7 @@
 		function onSuccess(position) {
 			latitude = position.coords.latitude;
 			longitude = position.coords.longitude;
+			timthay = true;
 		}
 	
 		function onError(error) {}
@@ -41,6 +43,17 @@
 		function timTheoTuKhoa(){
 			var key = document.getElementById('search-mini').value;
 			window.location.assign("results.html?"+latitude+"@"+longitude+"$"+key);
+		}
+		
+		function gotoMapViews(key){
+			if(!timthay){
+				navigator.notification.confirm(
+			            'Chưa tìm thấy vị trí hiện tại của bạn. Chúng tôi sẽ tìm kiếm tại trung tâm TP. HCM, bạn có muốn tiếp tục?',
+			            function(buttonIndex) {if(buttonIndex==2){window.location.assign("mapviews.html?"+latitude+"@"+longitude+"%"+key);}},
+			            'Chưa tìm thấy vị trí',
+			            'Thôi,Tiếp tục'
+			        );
+			} else{window.location.assign("mapviews.html?"+latitude+"@"+longitude+"%"+key);}
 		}
 	</script>
 <title>Wikilookup</title>
@@ -67,108 +80,22 @@
 		<!-- End Header -->
 
 		<!-- Start Content -->
-		<div class="ntc-content"
-			style="text-transform: none; overflow: hidden;">
-			<style>
-.nav-glyphish .ui-btn .ui-btn-inner {
-	padding-top: 80px !important;
-}
-
-.nav-glyphish .ui-btn .ui-icon {
-	width: 80px !important;
-	height: 80px !important;
-	margin-left: -40px !important;
-	box-shadow: none !important;
-	-moz-box-shadow: none !important;
-	-webkit-box-shadow: none !important;
-	-webkit-border-radius: 0 !important;
-	border-radius: 0 !important;
-}
-
-#vitri .ui-icon {
-	background: url(img/place.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#danhmuc .ui-icon {
-	background: url(img/catalog.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#quanhtoi .ui-icon {
-	background: url(img/starthere.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#chiduong .ui-icon {
-	background: url(img/around.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#atm .ui-icon {
-	background: url(img/atm.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#bank .ui-icon {
-	background: url(img/bank.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#khachsan .ui-icon {
-	background: url(img/hotel.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#nhahang .ui-icon {
-	background: url(img/restaurant.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#cayxang .ui-icon {
-	background: url(img/gasstation.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#bus .ui-icon {
-	background: url(img/busstation.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#truonghoc .ui-icon {
-	background: url(img/school.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-
-#canhsat .ui-icon {
-	background: url(img/police.png) 50% 50% no-repeat;
-	background-size: 60px 60px;
-}
-</style>
-			<div data-role="header" data-id="foo1" data-theme="e"
-				class="nav-glyphish">
+		<div class="ntc-content" style="text-transform: none; overflow: hidden;">
+			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a data-transition="none" data-ajax="false"
-							href="vitri.html" class="ntc-chucnang" id="vitri"
-							data-icon="custom">Vị trí</a></li>
-						<li><a data-ajax="false" href="danhmuc.html"
-							class="ntc-chucnang" id="danhmuc" data-icon="custom">Danh mục</a></li>
-						<li><a href="#" class="ntc-chucnang" id="quanhtoi"
-							data-icon="custom">Quanh tôi</a></li>
+						<li><a data-transition="none" data-ajax="false" href="vitri.html" class="ntc-chucnang" id="vitri" data-icon="custom">Vị trí</a></li>
+						<li><a data-ajax="false" href="danhmuc.html" class="ntc-chucnang" id="danhmuc" data-icon="custom">Danh mục</a></li>
+						<li><a href="#" class="ntc-chucnang" id="quanhtoi" data-icon="custom">Quanh tôi</a></li>
 					</ul>
 				</div>
 			</div>
-			<div data-role="header" data-id="foo1" data-theme="e"
-				class="nav-glyphish">
+			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a href="#" class="ntc-chucnang" id="chiduong"
-							data-icon="custom">Chỉ đường</a></li>
-						<li><a href="#" class="ntc-chucnang" id="atm"
-							data-icon="custom">ATM</a></li>
-						<li><a href="#" class="ntc-chucnang" id="bank"
-							data-icon="custom">Ngân hàng</a></li>
+						<li><a href="#" class="ntc-chucnang" id="chiduong" data-icon="custom">Chỉ đường</a></li>
+						<li><a href="#" onclick="gotoMapViews('atm')" class="ntc-chucnang" id="atm" data-icon="custom">ATM</a></li>
+						<li><a href="#" onclick="gotoMapViews('bank')" class="ntc-chucnang" id="bank" data-icon="custom">Ngân hàng</a></li>
 					</ul>
 				</div>
 			</div>
@@ -214,5 +141,68 @@
 			<!-- End Footer -->
 		</div>
 	</div>
+<style >
+.nav-glyphish .ui-btn .ui-btn-inner {
+	padding-top: 80px !important;
+}
+.nav-glyphish .ui-btn .ui-icon {
+	width: 80px !important;
+	height: 80px !important;
+	margin-left: -40px !important;
+	box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	-webkit-border-radius: 0 !important;
+	border-radius: 0 !important;
+}
+#vitri .ui-icon {
+	background: url(img/place.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#danhmuc .ui-icon {
+	background: url(img/catalog.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#quanhtoi .ui-icon {
+	background: url(img/starthere.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#chiduong .ui-icon {
+	background: url(img/around.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#atm .ui-icon {
+	background: url(img/atm.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#bank .ui-icon {
+	background: url(img/bank.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#khachsan .ui-icon {
+	background: url(img/hotel.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#nhahang .ui-icon {
+	background: url(img/restaurant.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#cayxang .ui-icon {
+	background: url(img/gasstation.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#bus .ui-icon {
+	background: url(img/busstation.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#truonghoc .ui-icon {
+	background: url(img/school.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+#canhsat .ui-icon {
+	background: url(img/police.png) 50% 50% no-repeat;
+	background-size: 60px 60px;
+}
+</style>
 </body>
 </html>
