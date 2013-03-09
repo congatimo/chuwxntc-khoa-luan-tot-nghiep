@@ -25,8 +25,9 @@
 
 		// Cordova is ready
 		function onDeviceReady() {
-		navigator.geolocation.getCurrentPosition(onSuccess, onError);
-		onChangeDanhMuc();
+			var options = { timeout: 3000 };
+			watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+			onChangeDanhMuc();
 		}
 	
 		function onSuccess(position) {
@@ -102,7 +103,7 @@
 		<!-- End Header -->
 		<!-- Start Content -->
 		<div>
-			<p id="geolocation" style="margin: 10px;">Đang dò tìm	vị trí của bạn...</p>
+			<p id="geolocation" style="margin: 10px;">Đang dò tìm vị trí của bạn...</p>
 			<div class="ntc-content" style="overflow: hidden;">
 				<fieldset data-role="controlgroup">
 					<label for="danhmuc" class="select">Danh mục</label>
