@@ -28,7 +28,8 @@
 		// Cordova is ready
 		function onDeviceReady() {
 			navigator.splashscreen.hide();
-			navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			var options = { timeout: 3000 };
+			watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 			// document.addEventListener("backbutton", onBackKeyDown, false);
 		}
 		
@@ -43,7 +44,8 @@
 			timthay = true;
 		}
 	
-		function onError(error) {}
+		function onError(error) {
+		}
 		
 		// Hàm tìm theo từ khóa
 		function timTheoTuKhoa(){
@@ -94,28 +96,16 @@
 						<li><a data-ajax="false" href="danhmuc.html" class="ntc-chucnang" id="danhmuc" data-icon="custom">Danh mục</a></li>
 						<li><a href="#" data-ajax="false" class="ntc-chucnang" id="chiduong" data-icon="custom">Chỉ đường</a></li>
 					</ul>
-				</div>
-			</div>
-			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
-				<div data-role="navbar" class="nav-glyphish">
 					<ul>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('gas_station')" class="ntc-chucnang" id="cayxang" data-icon="custom">Cây xăng</a></li>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('atm')" class="ntc-chucnang" id="atm" data-icon="custom">ATM</a></li>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('bus_station')" class="ntc-chucnang" id="bus" data-icon="custom">Xe buýt</a></li>
 					</ul>
-				</div>
-			</div>
-			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
-				<div data-role="navbar" class="nav-glyphish">
 					<ul>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('school')" class="ntc-chucnang" id="truonghoc" data-icon="custom">Trường học</a></li>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('bank')" class="ntc-chucnang" id="bank" data-icon="custom">Ngân hàng</a></li>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('hospital')" class="ntc-chucnang" id="benhvien" data-icon="custom">Bệnh viện</a></li>
 					</ul>
-				</div>
-			</div>
-			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
-				<div data-role="navbar" class="nav-glyphish">
 					<ul>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('restaurant')" class="ntc-chucnang" id="nhahang" data-icon="custom">Nhà hàng</a></li>
 						<li><a href="#" data-ajax="false" onclick="gotoMapViews('cafe')" class="ntc-chucnang" id="cafe" data-icon="custom">Cafe</a></li>

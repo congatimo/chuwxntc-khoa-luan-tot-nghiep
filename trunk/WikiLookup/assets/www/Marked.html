@@ -14,7 +14,6 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv9eLBwnLgRG2QfwOJvLUBwRrtw1sGTtc&sensor=false&language=vi"></script>
 	<script type="text/javascript" charset="utf-8" src="js/googlemap.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/phonegapfunctions.js"></script>
-	<script type="text/javascript" src="js/weather.js"></script>
 	
 	<!-- PhoneGap references -->
 	<script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
@@ -27,32 +26,21 @@
 		
 		// Cordova is ready
 		function onDeviceReady() {
-			var options = { timeout: 10000 };
+			var options = { timeout: 30000 };
 			watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
 		}
 		 
 		// onSuccess Geolocation
 		function onSuccess(position) {
-			var element = document.getElementById('geolocation');
-			var data = document.getElementById('datacontent');
-			data.style.display = "block";
-			
-			var datavitri = document.getElementById('datavitri');
-			datavitri.innerHTML = '<b>Vĩ độ: </b>' + position.coords.latitude + '<br/><b>Kinh độ: </b>' +  position.coords.longitude;
-			
-			var geocoder = new google.maps.Geocoder();
-			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-			geocoder.geocode({'latLng' : latlng}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					if (results[1]) {
-						element.innerHTML = 'Bạn đang ở ' + results[1].formatted_address;
-						datavitri.innerHTML += '<br/><b>Địa danh: </b>' + results[1].formatted_address;
-					}
-					else {element.innerHTML = 'Không thể định danh được vị trí của bạn!<br/>Bạn đang ở tọa độ:<br/>Kinh độ: ' + position.coords.longitude + '<br/>Vĩ độ: ' + position.coords.latitude;}
-				} 
-				else {}
-			});
+			var reachability = new Reachability();
+			if (reachability.IsNotConnected()) {
+				navigator.notification.alert('Không có kết nối Internet. Vui lòng thử lại sau!', null, '', 'OK');
+			} else {
+				var map = new GoogleMap(position.coords.latitude, position.coords.longitude);
+				map.initialize();
+			}	
 		}
+		
 		// onError Callback receives a PositionError object
 	    function onError(error) {
 	    }
@@ -64,22 +52,13 @@
 		<h1 style="text-transform: capitalize;"><b>VỊ TRÍ</b></h1>
 		<a data-ajax="false" href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 		<a data-ajax="false" href="about.html" data-icon="info" data-iconpos="notext" data-transition="slideup">About</a>
-	</div>
-	<p id="geolocation" style="margin: 10px; text-align: center;">Đang dò tìm vị trí của bạn...</p>
-	
-	<div data-role="collapsible-set" id = "datacontent" style="display: none;">
-		<div id="vitri" data-role="collapsible" data-collapsed="true" data-theme="e">
-			<h3>Vị trí</h3>
-			<p id="datavitri"></p>
-		</div>
-		<div data-role="collapsible">
-			<h3>Thời tiết</h3>
-			<p>Thời tiết sẻ được cập nhật tại đây</p>
 		</div>
 	</div>
-	
-	
-<
-
+		<!-- End Header -->
+	<div id="map_canvas" style="width: 100%; height: 400px; text-align:center;"><br/>Vui lòng đợi trong giây lát...</div>
+	<script type="text/javascript">
+	document.getElementById('map_canvas').style.height = document.body.clientHeight - 40;
+	</script>
 </body>
+
 </html>
