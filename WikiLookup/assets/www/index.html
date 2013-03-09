@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="format-detection" content="telephone=no" />
@@ -29,8 +29,14 @@
 		function onDeviceReady() {
 			navigator.splashscreen.hide();
 			navigator.geolocation.getCurrentPosition(onSuccess, onError);
+			// document.addEventListener("backbutton", onBackKeyDown, false);
 		}
 		
+		// Xác nhận thoát ứng dụng
+		function onBackKeyDown() {
+			window.location.assign("closeapp.html");
+	    }
+
 		function onSuccess(position) {
 			latitude = position.coords.latitude;
 			longitude = position.coords.longitude;
@@ -86,42 +92,34 @@
 					<ul>
 						<li><a data-transition="none" data-ajax="false" href="vitri.html" class="ntc-chucnang" id="vitri" data-icon="custom">Vị trí</a></li>
 						<li><a data-ajax="false" href="danhmuc.html" class="ntc-chucnang" id="danhmuc" data-icon="custom">Danh mục</a></li>
-						<li><a href="#" class="ntc-chucnang" id="quanhtoi" data-icon="custom">Quanh tôi</a></li>
+						<li><a href="#" data-ajax="false" class="ntc-chucnang" id="chiduong" data-icon="custom">Chỉ đường</a></li>
 					</ul>
 				</div>
 			</div>
 			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a href="#" class="ntc-chucnang" id="chiduong" data-icon="custom">Chỉ đường</a></li>
-						<li><a href="#" onclick="gotoMapViews('atm')" class="ntc-chucnang" id="atm" data-icon="custom">ATM</a></li>
-						<li><a href="#" onclick="gotoMapViews('bank')" class="ntc-chucnang" id="bank" data-icon="custom">Ngân hàng</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('gas_station')" class="ntc-chucnang" id="cayxang" data-icon="custom">Cây xăng</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('atm')" class="ntc-chucnang" id="atm" data-icon="custom">ATM</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('bus_station')" class="ntc-chucnang" id="bus" data-icon="custom">Xe buýt</a></li>
 					</ul>
 				</div>
 			</div>
-			<div data-role="header" data-id="foo1" data-theme="e"
-				class="nav-glyphish">
+			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a href="#" class="ntc-chucnang" id="khachsan"
-							data-icon="custom">Khách sạn</a></li>
-						<li><a href="#" class="ntc-chucnang" id="nhahang"
-							data-icon="custom">Nhà hàng</a></li>
-						<li><a href="#" class="ntc-chucnang" id="cayxang"
-							data-icon="custom">Cây xăng</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('school')" class="ntc-chucnang" id="truonghoc" data-icon="custom">Trường học</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('bank')" class="ntc-chucnang" id="bank" data-icon="custom">Ngân hàng</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('hospital')" class="ntc-chucnang" id="benhvien" data-icon="custom">Bệnh viện</a></li>
 					</ul>
 				</div>
 			</div>
-			<div data-role="header" data-id="foo1" data-theme="e"
-				class="nav-glyphish">
+			<div data-role="header" data-id="foo1" data-theme="e" class="nav-glyphish">
 				<div data-role="navbar" class="nav-glyphish">
 					<ul>
-						<li><a href="#" class="ntc-chucnang" id="bus"
-							data-icon="custom">Xe buýt</a></li>
-						<li><a href="#" class="ntc-chucnang" id="truonghoc"
-							data-icon="custom">Trường học</a></li>
-						<li><a href="#" class="ntc-chucnang" id="canhsat"
-							data-icon="custom">Cảnh sát</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('restaurant')" class="ntc-chucnang" id="nhahang" data-icon="custom">Nhà hàng</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('cafe')" class="ntc-chucnang" id="cafe" data-icon="custom">Cafe</a></li>
+						<li><a href="#" data-ajax="false" onclick="gotoMapViews('store')" class="ntc-chucnang" id="cuahang" data-icon="custom">Cửa hàng</a></li>
 					</ul>
 				</div>
 			</div>
@@ -131,8 +129,7 @@
 			<div data-role="footer" data-position="fixed">
 				<div data-role="navbar" data-iconpos="right">
 					<ul>
-						<li><a href="#" class="ui-btn-active" data-icon="grid">Địa
-								điểm</a></li>
+						<li><a href="#" class="ui-btn-active" data-icon="grid">Địa điểm</a></li>
 						<li><a href="#" data-icon="search">Tra cứu</a></li>
 						<li><a href="#" data-icon="gear">Tiện ích</a></li>
 					</ul>
@@ -141,7 +138,7 @@
 			<!-- End Footer -->
 		</div>
 	</div>
-<style >
+<style>
 .nav-glyphish .ui-btn .ui-btn-inner {
 	padding-top: 80px !important;
 }
@@ -163,8 +160,8 @@
 	background: url(img/catalog.png) 50% 50% no-repeat;
 	background-size: 60px 60px;
 }
-#quanhtoi .ui-icon {
-	background: url(img/starthere.png) 50% 50% no-repeat;
+#cuahang .ui-icon {
+	background: url(img/store.png) 50% 50% no-repeat;
 	background-size: 60px 60px;
 }
 #chiduong .ui-icon {
@@ -179,8 +176,8 @@
 	background: url(img/bank.png) 50% 50% no-repeat;
 	background-size: 60px 60px;
 }
-#khachsan .ui-icon {
-	background: url(img/hotel.png) 50% 50% no-repeat;
+#cafe .ui-icon {
+	background: url(img/cafe.png) 50% 50% no-repeat;
 	background-size: 60px 60px;
 }
 #nhahang .ui-icon {
@@ -199,8 +196,8 @@
 	background: url(img/school.png) 50% 50% no-repeat;
 	background-size: 60px 60px;
 }
-#canhsat .ui-icon {
-	background: url(img/police.png) 50% 50% no-repeat;
+#benhvien .ui-icon {
+	background: url(img/hospital.png) 50% 50% no-repeat;
 	background-size: 60px 60px;
 }
 </style>
