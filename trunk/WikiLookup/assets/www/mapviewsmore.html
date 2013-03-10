@@ -11,14 +11,21 @@
 	
 	<script>
 		var map, placesList;
+		var lat, lon, key;
 		function initialize() {
 			// Lấy dữ liệu transfer
-			var mySearch = location.search.substr(1);
+				// Lấy dữ liệu kinh, vĩ độ, khóa kiếm --------------------------- \\
+			var z = location.toString().indexOf('#');
+			var mySearch = location.toString().substr(z+1);
 			var x = mySearch.toString().indexOf('@');
-			var y = mySearch.toString().indexOf('%');
-			var lat = mySearch.toString().substr(0, x);
-			var lon = mySearch.toString().substr(x + 1, y - x - 1);
-			var key = mySearch.toString().substr(y + 1);
+			var y = mySearch.toString().indexOf('$');
+
+			// Khởi tạo các đối tượng
+			lat = mySearch.toString().substr(0, x);
+			lon = mySearch.toString().substr(x + 1, y - x - 1);
+			key = mySearch.toString().substr(y + 1);
+			// -------------------------------------------------------------- \\
+			
 			
 			// Vị trí hiển thị khi bản đồ hiển thị lần đầu tiên
 			var pyrmont = new google.maps.LatLng(lat, lon);
@@ -61,9 +68,9 @@
 			var marker = new google.maps.Marker({map: map, position: place.geometry.location});
 
 			google.maps.event.addListener(marker, 'click', function() {
-			    infowindow.setContent('<div style="text-align:center"><b>' + place.name + '</b></div>');
+			    infowindow.setContent('<b>' + place.name + '</b>');
 				infowindow.open(map, this);
-				});
+			});
 		}
 		
 		// Khởi tạo, kích hoạt Google Map API

@@ -1,64 +1,59 @@
 ﻿<html>
 <head>
+	<title>Marked</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
-	
-	<!-- jQuery references -->
-	<link href="css/themes/default/jquery.mobile-1.2.0.min.css"	rel="stylesheet" />
-	<link href="css/jqm-docs.css" rel="stylesheet" />
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery.mobile-1.2.0.min.js"></script>
 
 	<!-- Wikilookup references -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv9eLBwnLgRG2QfwOJvLUBwRrtw1sGTtc&sensor=false&language=vi"></script>
-	<script type="text/javascript" charset="utf-8" src="js/googlemap.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/phonegapfunctions.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href="css/googlemap.css" />
+	<script type="text/javascript" src="js/index.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=vi"></script>
 	
-	<!-- PhoneGap references -->
-	<script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
-	
-	<script type="text/javascript">
-		// Wait for Cordova to load
-		document.addEventListener("deviceready", onDeviceReady, false);
+    <script>
+    var lat, lon, key;
+      function initialize() {
+    	// Lấy dữ liệu kinh, vĩ độ, khóa kiếm --------------------------- \\
+		var z = location.toString().indexOf('#');
+		var mySearch = location.toString().substr(z+1);
+		var x = mySearch.toString().indexOf('@');
+		var y = mySearch.toString().indexOf('$');
+		lat = mySearch.toString().substr(0, x);
+		lon = mySearch.toString().substr(x + 1, y - x - 1);
+		key = mySearch.toString().substr(y + 1);
+		// --------------------------------------------------------------- \\
 		
-		var watchID = null;
-		
-		// Cordova is ready
-		function onDeviceReady() {
-			var options = { timeout: 30000 };
-			watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
-		}
-		 
-		// onSuccess Geolocation
-		function onSuccess(position) {
-			var reachability = new Reachability();
-			if (reachability.IsNotConnected()) {
-				navigator.notification.alert('Không có kết nối Internet. Vui lòng thử lại sau!', null, '', 'OK');
-			} else {
-				var map = new GoogleMap(position.coords.latitude, position.coords.longitude);
-				map.initialize();
-			}	
-		}
-		
-		// onError Callback receives a PositionError object
-	    function onError(error) {
-	    }
-	</script>
+        var map = new google.maps.Map(document.getElementById('map_canvas'), {
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          center: new google.maps.LatLng(lat, lon),
+          zoom: 15
+        });
+
+        var request = {
+          reference: key
+        };
+
+        var infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
+
+        service.getDetails(request, function(place, status) {
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setContent('<b>'+place.name+'</b><p>'+ place.formatted_address +'<p>');
+              infowindow.open(map, this);
+            });
+          }
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 </head>
 <body>
-	<!-- Start Header -->
-	<div data-role="header" data-theme="f" class="ntcHeader" data-position="fixed">
-		<h1 style="text-transform: capitalize;"><b>VỊ TRÍ</b></h1>
-		<a data-ajax="false" href="index.html" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
-		<a data-ajax="false" href="about.html" data-icon="info" data-iconpos="notext" data-transition="slideup">About</a>
-		</div>
-	</div>
-		<!-- End Header -->
-	<div id="map_canvas" style="width: 100%; height: 400px; text-align:center;"><br/>Vui lòng đợi trong giây lát...</div>
-	<script type="text/javascript">
-	document.getElementById('map_canvas').style.height = document.body.clientHeight - 40;
-	</script>
+<div id="map_canvas"></div>
 </body>
-
 </html>
