@@ -51,6 +51,14 @@
 					else {element.innerHTML = 'Không thể định danh được vị trí của bạn!<br/>Bạn đang ở tọa độ:<br/>Kinh độ: ' + position.coords.longitude + '<br/>Vĩ độ: ' + position.coords.latitude;}
 				} 
 				else {}
+				// Lấy thời gian -----------------------------------------------------------------------------------------------------------------------------------
+				var datathoigian = document.getElementById('thoigian');
+				var now = new Date(); 
+				var now_utc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),  now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+				document.write(now_utc.toString());
+				datathoigian.innerHTML = '<b>Local time: </b>'+now.toString();
+				datathoigian.innerHTML += '<br/><b>UTC/GMT: </b>'+now_utc.toString();
+				// -------------------------------------------------------------------------------------------------------------------------------------------------
 			});
 		}
 		// onError Callback receives a PositionError object
@@ -73,6 +81,10 @@
 			<p id="datavitri"></p>
 		</div>
 		<div data-role="collapsible">
+			<h3>Thời gian</h3>
+			<p id="thoigian"></p>
+		</div>
+		<div data-role="collapsible" data-theme="e">
 			<h3>Thời tiết</h3>
 			<p>Thời tiết sẻ được cập nhật tại đây</p>
 		</div>
